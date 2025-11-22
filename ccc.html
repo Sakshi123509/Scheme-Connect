@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarkar Schemes Portal - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+        }
+
+        /* Professional Background with Patterns */
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+        }
+
+        .page-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .pattern-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 400px;
+            opacity: 0.1;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: white;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #FF9933;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 100;
+        }
+
+        .top-bar-left {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        .top-bar-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .accessibility-btn {
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .lang-switch {
+            padding: 0.3rem 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            background: white;
+        }
+
+        /* Main Header */
+        .header {
+            background: white;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 99;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .emblem {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border: 3px solid #FF9933;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .site-title h1 {
+            color: #1e3c72;
+            font-size: 1.9rem;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .site-title p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .govt-logo {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .logo-badge {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF9933, #138808);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #1e3c72;
+            padding: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 98;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+        }
+
+        .nav-item {
+            color: white;
+            padding: 1rem 1.8rem;
+            text-decoration: none;
+            font-weight: 500;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #FF9933;
+        }
+
+        /* Pages Container */
+        .page {
+            display: none;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Login/Signup Page with Professional Background */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 250px);
+            padding: 2rem;
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+            overflow: hidden;
+            width: 950px;
+            display: flex;
+            position: relative;
+        }
+
+        .auth-left {
+            flex: 1;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #764ba2 100%);
+            color: white;
+            padding: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .auth-left::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        .auth-left-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .auth-left h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .auth-left p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        .auth-left ul {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .auth-left li {
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .auth-left li::before {
+            content: '✓';
+            background: rgba(255,255,255,0.25);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-weight: 700;
+        }
+
+        .auth-right {
+            flex: 1;
+            padding: 3.5rem;
+            background: white;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .auth-tab.active {
+            border-color: #1e3c72;
+            background: #1e3c72;
+            color: white;
+            box-shadow: 0 4px 15px rgba(30,60,114,0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #1e3c72;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30,60,114,0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(30,60,114,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(30,60,114,0.4);
+        }
+
+        /* Profile Creation with Professional Background */
+        .profile-container {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            max-width: 1000px;
+            margin: 2rem auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .profile-header h2 {
+            color: #1e3c72;
+            font-size: 2.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .profile-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .profile-steps {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2.5rem 0;
+            position: relative;
+        }
+
+        .profile-steps::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 30%;
+            right: 30%;
+            height: 3px;
+            background: #e9ecef;
+            z-index: 0;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .step.active .step-circle {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .step.completed .step-circle {
+            background: #138808;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Home Page with Professional Background */
+        .hero-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #FF9933, transparent);
+            opacity: 0.05;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            color: #1e3c72;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            color: #666;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .eligibility-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #d4edda;
+            color: #155724;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .hero-image {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, #FF9933 0%, white 50%, #138808 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72, #FF9933, #138808);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .categories-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h2 {
+            color: #1e3c72;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .view-all-btn {
+            padding: 1rem 2.5rem;
+            background: #1e3c72;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(30,60,114,0.3);
+        }
+
+        .view-all-btn:hover {
+            background: #2a5298;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(30,60,114,0.4);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .category-card {
+            padding: 2rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .category-card:hover {
+            border-color: #1e3c72;
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .category-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 0.8rem;
+        }
+
+        .category-count {
+            color: #666;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* All Schemes Page */
+        .schemes-header {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        .schemes-header h2 {
+            color: #1e3c72;
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .schemes-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .search-filter-bar {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #1e3c72;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30,60,114,0.1);
+        }
+
+        .filter-select {
+            padding: 1rem 1.5rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            min-width: 220px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #1e3c72;
+            background: white;
+        }
+
+        .schemes-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .scheme-card {
+            background: white;
+            border-radius: 18px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-left: 5px solid transparent;
+        }
+
+        .scheme-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.12);
+            border-left-color: #1e3c72;
+        }
+
+        .scheme-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.2rem;
+        }
+
+        .scheme-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .scheme-badge {
+            padding: 0.5rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, #FF9933, #FFB347);
+            color: white;
+        }
+
+        .badge-popular {
+            background: linear-gradient(135deg, #138808, #28a745);
+            color: white;
+        }
+
+        .badge-trending {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .scheme-dept {
+            color: #666;
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 1.2rem;
+        }
+
+        .scheme-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
+        }
+
+        .scheme-meta {
+            display: flex;
+            gap: 2.5rem;
+            margin-bottom: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: #666;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .meta-item span:first-child {
+            font-size: 1.4rem;
+        }
+
+        .scheme-actions {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .btn-details {
+            flex: 1;
+            padding: 1rem;
+            background: white;
+            color: #1e3c72;
+            border: 2px solid #1e3c72;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+        }
+
+        .btn-details:hover {
+            background: #1e3c72;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-apply {
+            flex: 1;
+            padding: 1rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(30,60,114,0.3);
+        }
+
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(30,60,114,0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .auth-box {
+                flex-direction: column;
+            }
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-image {
+                margin-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Professional Background -->
+    <div class="page-background">
+        <div class="pattern-overlay"></div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span>🇮🇳 Government of India</span>
+            <span>|</span>
+            <span>भारत सरकार</span>
+        </div>
+        <div class="top-bar-right">
+            <button class="accessibility-btn">
+                <span>♿</span>
+                <span>Accessibility</span>
+            </button>
+            <select class="lang-switch">
+                <option>🌐 English</option>
+                <option>🌐 हिंदी</option>
+                <option>🌐 मराठी</option>
+            </select>
+            <span style="font-size: 1.3rem; cursor: pointer;">🔍</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <div class="emblem">🇮🇳</div>
+            <div class="site-title">
+                <h1>Sarkar Schemes Portal</h1>
+                <p>सरकारी योजना पोर्टल - सभी योजनाएं एक मंच पर</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="govt-logo">
+                <div class="logo-badge">Digital<br>India</div>
+                <div class="logo-badge">Azadi<br>Ka Amrit</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-item active" onclick="showPage('login')">
+                <span>🏠</span> Home
+            </a>
+            <a href="#" class="nav-item" onclick="showPage('schemes')">
+                <span>📋</span> All Schemes
+            </a>
+            <a href="#" class="nav-item">
+                <span>✓</span> Check Eligibility
+            </a>
+            <a href="#" class="nav-item">
+                <span>📝</span> Apply
+            </a>
+            <a href="#" class="nav-item">
+                <span>🔍</span> Track Status
+            </a>
+            <a href="#" class="nav-item">
+                <span>💬</span> Help
+            </a>
+        </div>
+    </nav>
+
+    <!-- Login/Signup Page -->
+    <div id="login-page" class="page active">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-left">
+                    <div class="auth-left-content">
+                        <h2>Welcome to<br>Sarkar Schemes Portal</h2>
+                        <p>सरकारी योजना पोर्टल में आपका स्वागत है</p>
+                        <ul>
+                            <li>Access 500+ Government Schemes</li>
+                            <li>Check Your Eligibility Instantly</li>
+                            <li>Apply Online with Ease</li>
+                            <li>Track Your Applications Live</li>
+                            <li>Get Benefits Directly in Bank</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="auth-right">
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+                        <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+                    </div>
+
+                    <div id="login-form">
+                        <div class="form-group">
+                            <label>Mobile Number / Aadhaar Number</label>
+                            <input type="text" placeholder="Enter mobile or Aadhaar number">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Enter your password">
+                        </div>
+                        <button class="btn-primary" onclick="showPage('profile')">Login to Portal</button>
+                        <p style="text-align: center; margin-top: 1.5rem; color: #666;">
+                            <a href="#" style="color: #1e3c72; font-weight: 600;">Forgot Password?</a>
+                        </p>
+                    </div>
+
+                    <div id="signup-form" style="display: none;">
+                        <div class="form-group">
+                            <label>Full Name (पूरा नाम)</label>
+                            <input type="text" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" placeholder="10-digit mobile number">
+                        </div>
+                        <div class="form-group">
+                            <label>Aadhaar Number</label>
+                            <input type="text" placeholder="12-digit Aadhaar number">
+                        </div>
+                        <div class="form-group">
+                            <label>Create Password</label>
+                            <input type="password" placeholder="Create a strong password">
+                        </div>
+                        <button class="btn-primary" onclick="showPage('profile')">Create Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Creation Page -->
+    <div id="profile-page" class="page">
+        <div class="profile-container">
+            <div class="profile-header">
+                <h2>Complete Your Profile</h2>
+                <p>अपनी प्रोफाइल पूरी करें - यह हमें आपके लिए उपयुक्त योजनाएं खोजने में मदद करता है</p>
+            </div>
+
+            <div class="profile-steps">
+                <div class="step active">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Personal Info</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Family Details</div>
+                </div>
+                <div class="step">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Income & Work</div>
+                </div>
+            </div>
+
+            <form>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date of Birth (जन्म तिथि)</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender (लिंग)</label>
+                        <select>
+                            <option>Select Gender</option>
+                            <option>Male (पुरुष)</option>
+                            <option>Female (महिला)</option>
+                            <option>Other (अन्य)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category (श्रेणी)</label>
+                        <select>
+                            <option>Select Category</option>
+                            <option>General</option>
+                            <option>OBC</option>
+                            <option>SC</option>
+                            <option>ST</option>
+                            <option>EWS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>State (राज्य)</label>
+                        <select>
+                            <option>Select State</option>
+                            <option>Maharashtra</option>
+                            <option>Delhi</option>
+                            <option>Karnataka</option>
+                            <option>Tamil Nadu</option>
+                            <option>Uttar Pradesh</option>
+                            <option>Gujarat</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>District (जिला)</label>
+                    <select>
+                        <option>Select District</option>
+                        <option>Mumbai</option>
+                        <option>Pune</option>
+                        <option>Nagpur</option>
+                        <option>Nashik</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Education (शिक्षा)</label>
+                        <select>
+                            <option>Select Education Level</option>
+                            <option>Below 10th</option>
+                            <option>10th Pass</option>
+                            <option>12th Pass</option>
+                            <option>Graduate</option>
+                            <option>Post Graduate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Marital Status</label>
+                        <select>
+                            <option>Select Status</option>
+                            <option>Single</option>
+                            <option>Married</option>
+                            <option>Widowed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Occupation (व्यवसाय)</label>
+                        <select>
+                            <option>Select Occupation</option>
+                            <option>Student</option>
+                            <option>Farmer</option>
+                            <option>Self Employed</option>
+                            <option>Salaried</option>
+                            <option>Unemployed</option>
+                            <option>Daily Wage Worker</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Income (वार्षिक आय) ₹</label>
+                        <input type="number" placeholder="Enter annual income in rupees">
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="showPage('home')">Save Profile & Continue to Dashboard</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Namaste, Rajesh Kumar! 🙏</h1>
+                <p>Discover Government Schemes Made for You</p>
+                <div class="eligibility-tag">
+                    <span>✓</span>
+                    <span>You are eligible for 47 schemes</span>
+                </div>
+            </div>
+            <div class="hero-image">🇮🇳</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Total Schemes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✓</div>
+                <div class="stat-number">47</div>
+                <div class="stat-label">Eligible For You</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">Applications</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number">₹5.2L</div>
+                <div class="stat-label">Benefits Received</div>
+            </div>
+        </div>
+
+        <div class="categories-section">
+            <div class="section-header">
+                <h2>Browse Schemes by Category</h2>
+                <a href="#" class="view-all-btn" onclick="showPage('schemes')">View All Schemes →</a>
+            </div>
+            <div class="categories-grid">
+                <div class="category-card" onclick="showPage('schemes')">
+                    <div class="category-icon">🎓</div>
+                    <div class="category-name">Education</div>
+                    <div class="category-count">87 schemes • 12 eligible</div>
+                </div>
+                <div class="category-card" onclick="showPage('schemes')">
+                    <div class="category-icon">🏥</div>
+                    <div class="category-name">Health & Wellness</div>
+                    <div class="category-count">65 schemes • 8 eligible</div>
+                </div>
+                <div class="category-card" onclick="showPage('schemes')">
+                    <div class="category-icon">👨‍👩‍👧</div>
+                    <div class="category-name">Social Welfare</div>
+                    <div class="category-count">102 schemes • 15 eligible</div>
+                </div>
+                <div class="category-card" onclick="showPage('schemes')">
+                    <div class="category-icon">🌾</div>
+                    <div class="category-name">Agriculture</div>
+                    <div class="category-count">78 schemes • 5 eligible</div>
+                </div>
+                <div class="category-card" onclick="showPage('schemes')">
+                    <div class="category-icon">💼</div>
+                    <div class="category-name">Employment</div>
+                    <div class="category-count">54 schemes • 4 eligible</div>
+                </div>
+                <div class="category-card" onclick="showPage('schemes')">
+                    <div class="category-icon">🏠</div>
+                    <div class="category-name">Housing</div>
+                    <div class="category-count">43 schemes • 3 eligible</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Schemes Page -->
+    <div id="schemes-page" class="page">
+        <div class="schemes-header">
+            <h2>All Government Schemes</h2>
+            <p>Browse and apply to 500+ central and state government schemes</p>
+            <div class="search-filter-bar">
+                <input type="text" class="search-input" placeholder="🔍 Search schemes by name, benefit, or department...">
+                <select class="filter-select">
+                    <option>All Categories</option>
+                    <option>Education</option>
+                    <option>Health</option>
+                    <option>Agriculture</option>
+                    <option>Employment</option>
+                    <option>Housing</option>
+                    <option>Social Welfare</option>
+                </select>
+                <select class="filter-select">
+                    <option>All Governments</option>
+                    <option>Central Schemes</option>
+                    <option>State Schemes</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="schemes-grid">
+            <div class="scheme-card">
+                <div class="scheme-header-row">
+                    <div>
+                        <div class="scheme-title">Pradhan Mantri Awas Yojana</div>
+                        <div class="scheme-dept">🏛️ Ministry of Housing & Urban Affairs</div>
+                    </div>
+                    <span class="scheme-badge badge-new">New</span>
+                </div>
+                <div class="scheme-description">
+                    Financial assistance for construction of pucca houses for economically weaker sections and low-income groups. Subsidy of up to ₹2.67 lakh provided for affordable housing with basic amenities.
+                </div>
+                <div class="scheme-meta">
+                    <div class="meta-item">
+                        <span>💰</span>
+                        <span>Benefit: ₹2.67L Subsidy</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>1.2M+ Beneficiaries</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏰</span>
+                        <span>Deadline: 31 Dec 2025</span>
+                    </div>
+                </div>
+                <div class="scheme-actions">
+                    <button class="btn-details">View Full Details</button>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+
+            <div class="scheme-card">
+                <div class="scheme-header-row">
+                    <div>
+                        <div class="scheme-title">PM Kisan Samman Nidhi</div>
+                        <div class="scheme-dept">🏛️ Ministry of Agriculture & Farmers Welfare</div>
+                    </div>
+                    <span class="scheme-badge badge-popular">Popular</span>
+                </div>
+                <div class="scheme-description">
+                    Direct income support of ₹6,000 per year to small and marginal farmers holding cultivable land. Amount is transferred in three equal installments of ₹2,000 directly to bank accounts every four months.
+                </div>
+                <div class="scheme-meta">
+                    <div class="meta-item">
+                        <span>💰</span>
+                        <span>Benefit: ₹6,000/year</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>11Cr+ Beneficiaries</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏰</span>
+                        <span>Ongoing Program</span>
+                    </div>
+                </div>
+                <div class="scheme-actions">
+                    <button class="btn-details">View Full Details</button>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+
+            <div class="scheme-card">
+                <div class="scheme-header-row">
+                    <div>
+                        <div class="scheme-title">Ayushman Bharat - PM Jan Arogya Yojana</div>
+                        <div class="scheme-dept">🏛️ Ministry of Health & Family Welfare</div>
+                    </div>
+                    <span class="scheme-badge badge-trending">Trending</span>
+                </div>
+                <div class="scheme-description">
+                    Comprehensive health insurance coverage of ₹5 lakh per family per year for secondary and tertiary care hospitalization. Covers pre and post-hospitalization expenses, pre-existing conditions, and provides cashless treatment at empanelled hospitals.
+                </div>
+                <div class="scheme-meta">
+                    <div class="meta-item">
+                        <span>💰</span>
+                        <span>Cover: ₹5L Health Insurance</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>50Cr+ Beneficiaries</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏰</span>
+                        <span>Ongoing Program</span>
+                    </div>
+                </div>
+                <div class="scheme-actions">
+                    <button class="btn-details">View Full Details</button>
+                    <button class="btn-apply">Check Eligibility</button>
+                </div>
+            </div>
+
+            <div class="scheme-card">
+                <div class="scheme-header-row">
+                    <div>
+                        <div class="scheme-title">Beti Bachao Beti Padhao</div>
+                        <div class="scheme-dept">🏛️ Ministry of Women & Child Development</div>
+                    </div>
+                    <span class="scheme-badge badge-popular">Popular</span>
+                </div>
+                <div class="scheme-description">
+                    National initiative to address declining child sex ratio and promote education and empowerment of girl child. Provides financial incentives and creates awareness about gender equality and importance of educating girls.
+                </div>
+                <div class="scheme-meta">
+                    <div class="meta-item">
+                        <span>💰</span>
+                        <span>Financial Support & Benefits</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>1.5M+ Beneficiaries</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏰</span>
+                        <span>Ongoing Program</span>
+                    </div>
+                </div>
+                <div class="scheme-actions">
+                    <button class="btn-details">View Full Details</button>
+                    <button class="btn-apply">Apply Now</button>
+                </div>
+            </div>
+
+            <div class="scheme-card">
+                <div class="scheme-header-row">
+                    <div>
+                        <div class="scheme-title">Pradhan Mantri Mudra Yojana</div>
+                        <div class="scheme-dept">🏛️ Ministry of Finance</div>
+                    </div>
+                    <span class="scheme-badge badge-new">New</span>
+                </div>
+                <div class="scheme-description">
+                    Provides loans up to ₹10 lakh to non-corporate, non-farm small and micro enterprises. Three loan categories: Shishu (up to ₹50,000), Kishore (₹50,000 to ₹5 lakh), and Tarun (₹5 lakh to ₹10 lakh).
+                </div>
+                <div class="scheme-meta">
+                    <div class="meta-item">
+                        <span>💰</span>
+                        <span>Loan: Up to ₹10 Lakh</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>40Cr+ Loans Sanctioned</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏰</span>
+                        <span>Ongoing Program</span>
+                    </div>
+                </div>
+                <div class="scheme-actions">
+                    <button class="btn-details">View Full Details</button>
+                    <button class="btn-apply">Apply for Loan</button>
+                </div>
+            </div>
+
+            <div class="scheme-card">
+                <div class="scheme-header-row">
+                    <div>
+                        <div class="scheme-title">National Scholarship Portal</div>
+                        <div class="scheme-dept">🏛️ Ministry of Education</div>
+                    </div>
+                    <span class="scheme-badge badge-trending">Trending</span>
+                </div>
+                <div class="scheme-description">
+                    Centralized platform for various scholarship schemes for students from minority communities, SC/ST, OBC, and economically weaker sections. Includes pre-matric, post-matric, and merit-cum-means scholarships.
+                </div>
+                <div class="scheme-meta">
+                    <div class="meta-item">
+                        <span>💰</span>
+                        <span>Scholarship: ₹10K-₹1.25L</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>👥</span>
+                        <span>10Cr+ Applications</span>
+                    </div>
+                    <div class="meta-item">
+                        <span>⏰</span>
+                        <span>Applications Open</span>
+                    </div>
+                </div>
+                <div class="scheme-actions">
+                    <button class="btn-details">View Full Details</button>
+                    <button class="btn-apply">Apply for Scholarship</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p style="font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem;">© 2025 Sarkar Schemes Portal | Government of India</p>
+        <p>A unified platform bringing all central and state government schemes under one roof</p>
+        <p style="margin-top: 1rem;">सभी सरकारी योजनाएं एक ही मंच पर</p>
+    </footer>
+
+    <script>
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(pageName + '-page').classList.add('active');
+            
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            if (tab === 'login') {
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('signup-form').style.display = 'none';
+            } else {
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('signup-form').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
