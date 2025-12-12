@@ -1,11 +1,16 @@
-import Navbar from "./components/Navbar.jsx";
+import { Routes, Route } from "react-router-dom"; 
+import Navbar from "./components/Layout/Navbar"
+import Footer from "./components/Layout/Footer";
+import HeroSection from "./components/Home/HerooSection";
+
 
 const App = () => {
   return (
-    <div
-   >
-   < Navbar />
-    </div>
+    <>
+      <Navbar />
+      <HeroSection/>
+      {/* <Footer /> */}
+    </>
   );
 };
 
