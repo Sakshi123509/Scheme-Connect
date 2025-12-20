@@ -1,7 +1,4 @@
-// import { validationResult } from 'express-validator';
-// import User from '../models/user.js';
-// import jwt from 'jsonwebtoken';
-// import { hash, compare } from 'bcryptjs';
+
 
 // export const signup = async (req, res) => {
 //     try {

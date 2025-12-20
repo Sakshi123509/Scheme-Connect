@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const schemeSchema = new mongoose.Schema({
-    name: {
+    schemeName: {
         type: String,
         required: true,
         trim: true
@@ -12,6 +12,7 @@ const schemeSchema = new mongoose.Schema({
     },
     category: {
         type: String,
+        enum: ['Education', 'Health', 'Employment', 'Women', 'Housing'],
         required: true
     },
     eligibility: {
@@ -19,9 +20,15 @@ const schemeSchema = new mongoose.Schema({
         maxAge: Number,
         minIncome: Number,
         maxIncome: Number,
-        categories: [String], // e.g., ['SC', 'ST', 'OBC']
-        locations: [String], // e.g., ['Maharashtra', 'Delhi']
-        gender: [String], // ['Male', 'Female']
+        categories: {
+            type: [String],
+            enum: ['General', 'SC', 'ST', 'OBC', 'Minority']
+        },
+        locations: [String],
+        gender: {
+            type: [String],
+            enum: ['Male', 'Female', 'Other']
+        },
         occupation: [String]
     },
     applicationFormUrl: {
@@ -32,16 +39,14 @@ const schemeSchema = new mongoose.Schema({
         type: String, // YouTube video link
         required: true
     },
-    department: {
-        type: String,
-        required: true
-    },
-    benefits: {
-        type: String,
-        required: true
-    },
+    isActive: {
+        type: Boolean,
+        default: true
+    }
+    ,
     deadline: {
-        type: Date
+        type: Date,
+        required: true
     }
 }, {
     timestamps: true
