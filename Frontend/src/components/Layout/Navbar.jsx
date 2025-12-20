@@ -69,10 +69,10 @@ const Navbar = () => {
               Home
             </li>
             <li className="hover:text-amber-400 hover:scale-110 transition-all duration-200">
-              About
+              Schemes
             </li>
             <li className="hover:text-amber-400 hover:scale-110 transition-all duration-200">
-              Schemes
+              About
             </li>
             <li className="hover:text-amber-400 hover:scale-110 transition-all duration-200">
               Blog
