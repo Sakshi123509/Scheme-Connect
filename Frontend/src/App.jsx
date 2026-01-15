@@ -1,28 +1,30 @@
 import { Routes, Route } from "react-router-dom";
-// import Navbar from "./components/Layout/Navbar"
-// import Footer from "./components/Layout/Footer";
-import About from "./components/Dashboard/ApplicationCard";
-import LoginForm from "./components/Auth/LoginForm";
-import HeroSection from "./components/Home/HerooSection";
-import SearchBar from "./components/Common/SearchBar";
-import { Search } from "lucide-react";
-import Button from "./components/Common/Button";
-import Card from "./components/Common/Card";
+import About from "./pages/AboutUs";
+import LoginForm from "./pages/login";
+import HeroSection from "./components/Home/HeroSection";
+import Register from "./pages/Register";
+import BlogCard from "./components/Common/Blogscard.jsx";
+import FAQ from "./pages/FAQ";
+import Contact from "./pages/contact.jsx";
+import Footer from "./components/Layout/Footer.jsx";
+import AdminPanel from "./pages/AdminPanel.jsx";
 
 const App = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<HeroSection />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/About" element={<About/>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/Blogs" element={<BlogCard />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="footer" element={<Footer />} />
       </Routes>
-      <SearchBar />
-      <Button />
-      <Card
-        number="1450+"
-        description="Total Schemes"
-      />
+      <AdminPanel />
+      <Footer />
+
     </>
   );
 };

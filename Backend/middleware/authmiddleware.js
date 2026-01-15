@@ -1,23 +1,31 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user.js';
+import User from '../models/User.js';
 
 const authMiddleware = async (req, res, next) => {
     try {
-        const token = req.header('Authorization')?.replace('Bearer ', '');
-        if (!token) {
-            return res.status(401).json({ message: 'No token provided' });
+        // 1. Token uthao header se
+        const authHeader = req.header('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ message: 'Access denied. No token provided.' });
         }
+        const token = authHeader.split(' ')[1];
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret');
-        const user = await User.findById(decoded.id);
+        // 2. Token verify karo
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        // 3. User DB se lao
+        const user = await User.findById(decoded.id).select('-password');
         if (!user) {
             return res.status(401).json({ message: 'User not found' });
         }
 
+        // 4. req.user me store karo
         req.user = user;
+
+        // 5. Next route pe jao
         next();
     } catch (error) {
-        res.status(401).json({ message: 'Invalid token' });
+        return res.status(401).json({ message: 'Invalid or expired token' });
     }
 };
 

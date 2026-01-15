@@ -116,9 +116,9 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20 overflow-hidden">
+      <section className="relative bg-linear-to-r from-blue-900 via-blue-800 to-blue-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-orange-300 rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-green-300 rounded-full blur-3xl"></div>
@@ -162,7 +162,7 @@ const AboutUs = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-700">
+      <section className="py-16 bg-linear-to-r from-blue-600 to-blue-700">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -219,7 +219,7 @@ const AboutUs = () => {
 
           <div className="grid md:grid-cols-4 gap-6">
             {values.map((value, index) => (
-              <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 text-center hover:shadow-lg transition">
+              <div key={index} className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl p-6 text-center hover:shadow-lg transition">
                 <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-600 shadow-md">
                   {value.icon}
                 </div>
@@ -258,7 +258,7 @@ const AboutUs = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-white">
+      <section className="py-16 bg-linear-to-r from-blue-900 via-blue-800 to-blue-900 text-white">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <Award className="mx-auto mb-6 text-yellow-400" size={64} />
           <h2 className="text-4xl font-bold mb-4">आज ही शुरू करें</h2>

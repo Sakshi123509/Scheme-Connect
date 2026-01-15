@@ -5,19 +5,21 @@ import {
     createScheme,
     updateScheme,
     deleteScheme,
-    searchSchemes,
-    getEligibleSchemes
+    SearchSchemes
 } from '../controllers/schemecontroller.js';
 import authMiddleware from '../middleware/authmiddleware.js';
+import adminMiddleware from '../middleware/adminmiddleware.js';
 
 const router = express.Router();
 
+//public routes user can see schemes without login
 router.get('/', getAllSchemes);
-router.get('/search', searchSchemes);
-router.get('/eligible', authMiddleware, getEligibleSchemes);
 router.get('/:id', getSchemeById);
-router.post('/', createScheme); // Admin only, but for now no auth
-router.put('/:id', updateScheme);
-router.delete('/:id', deleteScheme);
+router.get('/search/:query', SearchSchemes);
+
+//for admin only
+router.post('/', authMiddleware, adminMiddleware, createScheme);
+router.put('/:id', authMiddleware, adminMiddleware, updateScheme);
+router.delete('/:id', authMiddleware, adminMiddleware, deleteScheme);
 
 export default router;

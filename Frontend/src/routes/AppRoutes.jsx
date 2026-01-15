@@ -4,7 +4,6 @@ import MainLayout from '../components/Layout/MainLayout';
 
 // Pages
 import Home from '../pages/Home';
-import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import SchemesPage from '../pages/SchemesPage';
 import SchemeDetail from '../pages/SchemeDetail';

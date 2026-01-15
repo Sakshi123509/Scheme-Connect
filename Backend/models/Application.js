@@ -8,7 +8,7 @@ const applicationSchema = new mongoose.Schema({
     },
     profile: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Profile',
+        ref: 'User',
         required: true
     },
     status: {

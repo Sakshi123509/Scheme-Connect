@@ -1,0 +1,302 @@
+[
+  {
+    "id": 1,
+    "name": "Pradhan Mantri Awas Yojana",
+    "description": "Financial assistance for affordable housing to eligible families across India.",
+    "category": "Housing"
+  },
+  {
+    "id": 2,
+    "name": "Beti Bachao Beti Padhao",
+    "description": "Scheme focused on education, safety and empowerment of the girl child.",
+    "category": "Women"
+  },
+  {
+    "id": 3,
+    "name": "PM Kisan Samman Nidhi",
+    "description": "Income support of ₹6000 per year to eligible farmer families.",
+    "category": "Agriculture"
+  },
+  {
+    "id": 4,
+    "name": "Ayushman Bharat Yojana",
+    "description": "Health insurance coverage up to ₹5 lakh per family per year.",
+    "category": "Health"
+  },
+  {
+    "id": 5,
+    "name": "National Pension Scheme",
+    "description": "Encourages citizens to save for retirement through a voluntary contribution scheme.",
+    "category": "Finance"
+  },
+  {
+    "id": 6,
+    "name": "Swachh Bharat Abhiyan",
+    "description": "Nationwide cleanliness campaign to promote hygiene and sanitation.",
+    "category": "Environment"
+  },
+  {
+    "id": 7,
+    "name": "Digital India",
+    "description": "Transform India into a digitally empowered society and knowledge economy.",
+    "category": "Technology"
+  },
+  {
+    "id": 8,
+    "name": "Skill India",
+    "description": "Upskilling and training youth to enhance employability.",
+    "category": "Employment"
+  },
+  {
+    "id": 9,
+    "name": "Startup India",
+    "description": "Encourages and supports startups for innovation and entrepreneurship.",
+    "category": "Business"
+  },
+  {
+    "id": 10,
+    "name": "PM Ujjwala Yojana",
+    "description": "Provides free LPG connections to women from below poverty line households.",
+    "category": "Energy"
+  },
+  {
+    "id": 11,
+    "name": "National Health Mission",
+    "description": "Improve healthcare delivery across rural and urban India.",
+    "category": "Health"
+  },
+  {
+    "id": 12,
+    "name": "Pradhan Mantri Jan Dhan Yojana",
+    "description": "Financial inclusion by providing bank accounts to all citizens.",
+    "category": "Finance"
+  },
+  {
+    "id": 13,
+    "name": "National Rural Employment Guarantee Act",
+    "description": "Provides 100 days of guaranteed wage employment to rural households.",
+    "category": "Employment"
+  },
+  {
+    "id": 14,
+    "name": "Atal Pension Yojana",
+    "description": "Pension scheme for workers in the unorganized sector.",
+    "category": "Finance"
+  },
+  {
+    "id": 15,
+    "name": "Sukanya Samriddhi Yojana",
+    "description": "Encourages parents to save for their daughter's future education and marriage.",
+    "category": "Women"
+  },
+  {
+    "id": 16,
+    "name": "National Solar Mission",
+    "description": "Promotes solar energy deployment and sustainable growth.",
+    "category": "Environment"
+  },
+  {
+    "id": 17,
+    "name": "Pradhan Mantri Gram Sadak Yojana",
+    "description": "Provides all-weather road connectivity to unconnected villages.",
+    "category": "Infrastructure"
+  },
+  {
+    "id": 18,
+    "name": "Pradhan Mantri Fasal Bima Yojana",
+    "description": "Crop insurance scheme for farmers to protect against crop loss.",
+    "category": "Agriculture"
+  },
+  {
+    "id": 19,
+    "name": "National Education Mission",
+    "description": "Enhances quality and accessibility of education across India.",
+    "category": "Education"
+  },
+  {
+    "id": 20,
+    "name": "BharatNet Project",
+    "description": "Expands broadband connectivity to rural areas for digital access.",
+    "category": "Technology"
+  },
+  {
+    "id": 21,
+    "name": "PM Modi Scholarship Scheme",
+    "description": "Financial aid for meritorious students from economically weaker sections.",
+    "category": "Education"
+  },
+  {
+    "id": 22,
+    "name": "National Nutrition Mission",
+    "description": "Reduces malnutrition among children, adolescent girls, and pregnant women.",
+    "category": "Health"
+  },
+  {
+    "id": 23,
+    "name": "Pradhan Mantri Awaas Yojana – Gramin",
+    "description": "Affordable housing for rural populations with financial support.",
+    "category": "Housing"
+  },
+  {
+    "id": 24,
+    "name": "Mahatma Gandhi National Rural Employment Scheme",
+    "description": "Guarantees rural employment and improves livelihood security.",
+    "category": "Employment"
+  },
+  {
+    "id": 25,
+    "name": "Janani Suraksha Yojana",
+    "description": "Promotes institutional deliveries and maternal health.",
+    "category": "Health"
+  },
+  {
+    "id": 26,
+    "name": "Pradhan Mantri Krishi Sinchai Yojana",
+    "description": "Irrigation scheme to enhance water efficiency for farmers.",
+    "category": "Agriculture"
+  },
+  {
+    "id": 27,
+    "name": "National Literacy Mission",
+    "description": "Improves literacy rates and adult education in India.",
+    "category": "Education"
+  },
+  {
+    "id": 28,
+    "name": "National Rural Health Mission",
+    "description": "Strengthens rural healthcare infrastructure and services.",
+    "category": "Health"
+  },
+  {
+    "id": 29,
+    "name": "Deen Dayal Upadhyaya Gram Jyoti Yojana",
+    "description": "Rural electrification and reliable power supply to villages.",
+    "category": "Energy"
+  },
+  {
+    "id": 30,
+    "name": "Pradhan Mantri Shram Yogi Maan-dhan",
+    "description": "Pension scheme for unorganized sector workers.",
+    "category": "Finance"
+  },
+  {
+    "id": 31,
+    "name": "National Urban Livelihoods Mission",
+    "description": "Empowers urban poor by improving livelihood opportunities.",
+    "category": "Employment"
+  },
+  {
+    "id": 32,
+    "name": "Swadesh Darshan Scheme",
+    "description": "Promotes integrated development of tourist circuits across India.",
+    "category": "Tourism"
+  },
+  {
+    "id": 33,
+    "name": "National Skill Development Mission",
+    "description": "Upgrades skills of youth for better employability.",
+    "category": "Employment"
+  },
+  {
+    "id": 34,
+    "name": "Ujjwala LPG Yojana",
+    "description": "Subsidized LPG connections for poor families to reduce indoor pollution.",
+    "category": "Energy"
+  },
+  {
+    "id": 35,
+    "name": "National Rural Drinking Water Programme",
+    "description": "Provides safe and adequate drinking water in rural areas.",
+    "category": "Water"
+  },
+  {
+    "id": 36,
+    "name": "Pradhan Mantri Kaushal Vikas Yojana",
+    "description": "Skill development program to enhance employability.",
+    "category": "Employment"
+  },
+  {
+    "id": 37,
+    "name": "National Digital Health Mission",
+    "description": "Digital health infrastructure for easy access to medical records.",
+    "category": "Health"
+  },
+  {
+    "id": 38,
+    "name": "Mahatma Gandhi National Fellowship",
+    "description": "Promotes research and innovation among young scholars.",
+    "category": "Education"
+  },
+  {
+    "id": 39,
+    "name": "PM Garib Kalyan Yojana",
+    "description": "Financial aid and relief measures for the economically weaker sections.",
+    "category": "Finance"
+  },
+  {
+    "id": 40,
+    "name": "National Rural Infrastructure Development Agency",
+    "description": "Supports rural infrastructure projects including roads and bridges.",
+    "category": "Infrastructure"
+  },
+  {
+    "id": 41,
+    "name": "Bharatiya Poshan Abhiyan",
+    "description": "Addresses malnutrition in children and women.",
+    "category": "Health"
+  },
+  {
+    "id": 42,
+    "name": "Pradhan Mantri Matru Vandana Yojana",
+    "description": "Maternity benefit scheme for pregnant and lactating women.",
+    "category": "Women"
+  },
+  {
+    "id": 43,
+    "name": "National Electric Mobility Mission",
+    "description": "Promotes adoption of electric vehicles for sustainable transport.",
+    "category": "Environment"
+  },
+  {
+    "id": 44,
+    "name": "Smart Cities Mission",
+    "description": "Develops smart urban infrastructure with modern facilities.",
+    "category": "Infrastructure"
+  },
+  {
+    "id": 45,
+    "name": "National Rural Health Infrastructure Scheme",
+    "description": "Strengthens rural health centers with modern facilities.",
+    "category": "Health"
+  },
+  {
+    "id": 46,
+    "name": "Pradhan Mantri Digital Saksharta Abhiyan",
+    "description": "Promotes digital literacy across the country.",
+    "category": "Technology"
+  },
+  {
+    "id": 47,
+    "name": "National E-Mobility Scheme",
+    "description": "Encourages electric vehicle adoption and charging infrastructure.",
+    "category": "Environment"
+  },
+  {
+    "id": 48,
+    "name": "Rashtriya Swasthya Bima Yojana",
+    "description": "Health insurance for below-poverty-line families.",
+    "category": "Health"
+  },
+  {
+    "id": 49,
+    "name": "Atal Innovation Mission",
+    "description": "Encourages innovation and entrepreneurship in schools and universities.",
+    "category": "Education"
+  },
+  {
+    "id": 50,
+    "name": "Pradhan Mantri Sahaj Bijli Har Ghar Yojana",
+    "description": "Provides electricity connections to all rural households.",
+    "category": "Energy"
+  }
+]
