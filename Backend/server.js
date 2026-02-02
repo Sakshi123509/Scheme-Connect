@@ -1,6 +1,4 @@
 import app from './app.js';
-import errorHandler from './middleware/errormiddleware.js';
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -7,56 +7,39 @@ const profileSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    username: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    email: {
-        type: String,
-        required: true,
-        trim: true,
-        unique: true,
-        lowercase: true
-    },
-    password: {
-        type: String,
-        required: true,
-        minlength: 6
-    },
     age: {
         type: Number,
-        required: true
+        required: true,
+        min: 1,
+        max: 150
     },
     income: {
         type: Number,
-        required: true
+        required: true,
+        min: 0
     },
     category: {
         type: String,
-        enum: ['General', 'SC', 'ST', 'OBC', 'Minority'],
-        default: 'General'
+        required: true,
+        enum: ['General', 'SC', 'ST', 'OBC', 'Minority']
     },
     location: {
-        type: String,
-        required: true
-    },
-    gender: {
-        type: String,
-        enum: ['Male', 'Female', 'Other'],
-        required: true
-    },
-    occupation: {
         type: String,
         required: true
     },
     state: {
         type: String,
         required: true
+    },
+    gender: {
+        type: String,
+        required: true,
+        enum: ['Male', 'Female', 'Other']
+    },
+    occupation: {
+        type: String,
+        required: true
     }
-},
-    { timestamps: true }
-);
+}, { timestamps: true });
 
 export default mongoose.model("Profile", profileSchema);
-

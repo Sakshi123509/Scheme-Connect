@@ -1,6 +1,7 @@
 // controllers/applicationController.js
 import Application from '../models/application.js';
 import Scheme from '../models/scheme.js';
+import Profile from '../models/Profile.js';
 import { validationResult } from 'express-validator';
 
 /** Apply for a scheme */
@@ -15,15 +16,18 @@ export const applyForScheme = async (req, res) => {
     const scheme = await Scheme.findById(schemeId);
     if (!scheme) return res.status(404).json({ message: "Scheme not found" });
 
+    const userProfile = await Profile.findOne({ user: req.user._id });
+    if (!userProfile) return res.status(404).json({ message: "Please complete your profile first" });
+
     const alreadyApplied = await Application.findOne({
       scheme: schemeId,
-      profile: req.user._id
+      profile: userProfile._id
     });
     if (alreadyApplied) return res.status(400).json({ message: "Already applied" });
 
     const application = new Application({
       scheme: schemeId,
-      profile: req.user._id
+      profile: userProfile._id
     });
 
     await application.save();
@@ -39,7 +43,10 @@ export const applyForScheme = async (req, res) => {
 /** Get applications of logged-in user */
 export const getMyApplications = async (req, res) => {
   try {
-    const applications = await Application.find({ profile: req.user._id })
+    const userProfile = await Profile.findOne({ user: req.user._id });
+    if (!userProfile) return res.status(404).json({ applications: [] });
+    
+    const applications = await Application.find({ profile: userProfile._id })
       .populate('scheme', 'name description')
       .sort({ createdAt: -1 });
 
@@ -70,14 +77,19 @@ export const getAllApplications = async (req, res) => {
 /** Get application by ID */
 export const getApplicationById = async (req, res) => {
   try {
+    const userProfile = await Profile.findOne({ user: req.user._id });
     const application = await Application.findById(req.params.id)
       .populate('scheme', 'name description')
       .populate('profile', 'name email');
     if (!application) return res.status(404).json({ message: "Application not found" });
     // Ensure user can only view their own application unless admin
-    if (application.profile._id.toString() !== req.user._id.toString() && !req.user.isAdmin) {
+    if (
+      (userProfile && application.profile._id.toString() !== userProfile._id.toString()) &&
+      req.user.role !== 'admin'
+    ) {
       return res.status(403).json({ message: "Access denied" });
     }
+
 
     res.status(200).json({ application });
   } catch (error) {

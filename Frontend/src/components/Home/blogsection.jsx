@@ -1,5 +1,5 @@
 import React from "react";
-import BlogCard from "../../pages/Blogscard";
+import BlogCard from "../../pages/BlogCard";
 import blogsData from "../../services/BlogData";
 import Navbar from "../Layout/Navbar-light";
 
@@ -20,7 +20,7 @@ const BlogSection = () => {
           </div>
 
           {/* Blog Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogsData.map((blog) => (
               <BlogCard key={blog.id} blog={blog} />
             ))}

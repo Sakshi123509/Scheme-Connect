@@ -17,12 +17,29 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
+    if (!formData.email || !formData.password) {
+      alert("Email and password are required");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      alert("Password must be at least 6 characters");
+      return;
+    }
+
     try {
       const res = await axios.post(
         "http://localhost:3000/api/auth/login",
-        formData
+        formData,
       );
-      localStorage.setItem("token", res.data.token); // store JWT
+
+      localStorage.setItem("token", res.data.token);
       navigate("/profile");
     } catch (err) {
       alert(err?.response?.data?.message || "Login failed");
@@ -60,17 +77,17 @@ export default function Login() {
             <input
               type="email"
               name="email"
+              required
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
               className={inputClass}
             />
 
-            <label className="font-medium text-gray-700">Password</label>
-
             <input
               type="password"
               name="password"
+              required
               value={formData.password}
               onChange={handleChange}
               placeholder="********"

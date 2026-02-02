@@ -20,18 +20,41 @@ export default function Signup() {
   };
 
   const handleRegister = async () => {
+    const { name, email, password } = formData;
+
+    // Empty check
+    if (!name || !email || !password) {
+      alert("All fields are required");
+      return;
+    }
+
+    // Remove extra spaces
+    if (!name.trim()) {
+      alert("Name cannot be empty");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    // Password validation
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long");
+      return;
+    }
+
     try {
-      const res = await axios.post(
-        "http://localhost:3000/api/auth/register",
-        formData
-      );
-      console.log("Register Response:", res.data); // 🔍 check what backend returns
+      const res = await axios.post("http://localhost:3000/api/auth/register", {
+        name: name.trim(),
+        email: email.toLowerCase(),
+        password,
+      });
 
-      // Optional: Only save token if it exists
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-      }
-
+      alert("Registration successful! Please login.");
       navigate("/login");
     } catch (err) {
       alert(err?.response?.data?.message || "Registration failed");
@@ -71,6 +94,7 @@ export default function Signup() {
             <input
               type="text"
               name="name"
+              required
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your name"
@@ -78,9 +102,11 @@ export default function Signup() {
             />
 
             <label className="font-medium text-gray-700">Email</label>
+
             <input
               type="email"
               name="email"
+              required
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
@@ -92,6 +118,7 @@ export default function Signup() {
             <input
               type="password"
               name="password"
+              required
               value={formData.password}
               onChange={handleChange}
               placeholder="********"

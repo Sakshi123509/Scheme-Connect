@@ -1,7 +1,7 @@
-import Navbar from "../components/Layout/Navbar";
+import Navbar from "../components/Layout/Navbar-light";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { authAPI, profileAPI } from "../services/api";
 
 const inputClass =
   "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-600";
@@ -9,7 +9,8 @@ const inputClass =
 export const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [profileData, setprofileData] = useState({
+  const [loading, setLoading] = useState(true);
+  const [profileData, setProfileData] = useState({
     age: "",
     gender: "",
     category: "",
@@ -18,44 +19,69 @@ export const Profile = () => {
     state: "",
     location: "",
   });
+
   const handleChange = (e) => {
-    setFormData({ ...profileData, [e.target.name]: e.target.value });
+    setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const loadProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          navigate("/login");
+          return;
+        }
 
-    if (!token) {
-      navigate("/login");
-      return;
-    }
+        const userRes = await authAPI.getProfile();
+        setUser(userRes.data);
 
-    axios
-      .get("http://localhost:3000/api/auth/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setUser(res.data))
-      .catch(() => navigate("/login"));
-  }, []);
+        // Try to load existing profile
+        try {
+          const profileRes = await profileAPI.get();
+          const profile = profileRes.data.profile || profileRes.data;
+          if (profile) {
+            setProfileData(profile);
+          }
+        } catch (err) {
+          // Profile doesn't exist yet, that's okay
+          console.log("No existing profile");
+        }
+      } catch (err) {
+        console.error("Error loading profile:", err);
+        navigate("/login");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProfile();
+  }, [navigate]);
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem("token");
+      // Validate required fields
+      if (!profileData.age || !profileData.gender || !profileData.category) {
+        alert("Please fill all required fields");
+        return;
+      }
 
-      await axios.post("http://localhost:3000/api/profile", profileData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
+      await profileAPI.create(profileData);
       alert("Profile Saved Successfully");
     } catch (err) {
-      alert("Error saving profile");
-      console.log(err);
+      console.error("Error saving profile:", err);
+      alert(err.response?.data?.message || "Error saving profile");
     }
   };
 
-  if (!user) return <p>Loading......</p>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-xl">Loading...</p>
+      </div>
+    );
+  }
 
-  console.log(profileData);
   return (
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
@@ -67,7 +93,6 @@ export const Profile = () => {
 
         {/* Grid for inputs */}
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Full Name */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
               Full Name
@@ -75,13 +100,12 @@ export const Profile = () => {
             <input
               type="text"
               placeholder="Enter your Name"
-              value={user.name || ""}
+              value={user?.name || ""}
               readOnly
-              className={inputClass}
+              className={inputClass + " bg-gray-100"}
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
               Email
@@ -89,15 +113,16 @@ export const Profile = () => {
             <input
               type="email"
               placeholder="Enter your email"
-              value={user.email || ""}
+              value={user?.email || ""}
               readOnly
-              className={inputClass}
+              className={inputClass + " bg-gray-100"}
             />
           </div>
 
-          {/* Age */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">Age</label>
+            <label className="block font-medium text-gray-700 mb-1">
+              Age <span className="text-red-500">*</span>
+            </label>
             <input
               type="number"
               name="age"
@@ -105,16 +130,15 @@ export const Profile = () => {
               value={profileData.age}
               onChange={handleChange}
               className={inputClass}
+              required
             />
           </div>
 
-          {/* Gender */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Gender
+              Gender <span className="text-red-500">*</span>
             </label>
-
-            <div className="flex items-center gap-4 mt-1">
+            <div className="flex items-center gap-4 mt-2">
               <label className="flex items-center gap-1">
                 <input
                   type="radio"
@@ -122,10 +146,10 @@ export const Profile = () => {
                   value="Male"
                   checked={profileData.gender === "Male"}
                   onChange={handleChange}
+                  required
                 />
                 Male
               </label>
-
               <label className="flex items-center gap-1">
                 <input
                   type="radio"
@@ -136,7 +160,6 @@ export const Profile = () => {
                 />
                 Female
               </label>
-
               <label className="flex items-center gap-1">
                 <input
                   type="radio"
@@ -150,21 +173,18 @@ export const Profile = () => {
             </div>
           </div>
 
-          {/* Category */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Category
+              Category <span className="text-red-500">*</span>
             </label>
             <select
               name="category"
               onChange={handleChange}
               value={profileData.category}
-              className={inputClass + " mt-1"}
-              defaultValue=""
+              className={inputClass}
+              required
             >
-              <option value="" disabled>
-                Select Category
-              </option>
+              <option value="">Select Category</option>
               <option value="General">General</option>
               <option value="SC">SC</option>
               <option value="ST">ST</option>
@@ -173,14 +193,14 @@ export const Profile = () => {
             </select>
           </div>
 
-          {/* Income */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Income (₹)
+              Annual Income (₹)
             </label>
             <input
               type="number"
-              placeholder="Enter your income"
+              name="income"
+              placeholder="Enter your annual income"
               value={profileData.income}
               onChange={handleChange}
               className={inputClass}
@@ -194,6 +214,7 @@ export const Profile = () => {
             </label>
             <input
               type="text"
+              name="occupation"
               placeholder="Enter your occupation"
               value={profileData.occupation}
               onChange={handleChange}
@@ -201,7 +222,6 @@ export const Profile = () => {
             />
           </div>
 
-          {/* State */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
               State
@@ -210,28 +230,29 @@ export const Profile = () => {
               name="state"
               value={profileData.state}
               onChange={handleChange}
-              className={inputClass + " mt-1"}
-              defaultValue=""
+              className={inputClass}
             >
-              <option value="" disabled>
-                Select State
-              </option>
+              <option value="">Select State</option>
               <option value="Maharashtra">Maharashtra</option>
               <option value="Karnataka">Karnataka</option>
               <option value="Delhi">Delhi</option>
               <option value="Gujarat">Gujarat</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Rajasthan">Rajasthan</option>
               <option value="Other">Other</option>
             </select>
           </div>
 
-          {/* Location */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
-              Location
+              City/Location
             </label>
             <input
               type="text"
-              placeholder="Enter your city / town"
+              name="location"
+              placeholder="Enter your city or town"
               value={profileData.location}
               onChange={handleChange}
               className={inputClass}
