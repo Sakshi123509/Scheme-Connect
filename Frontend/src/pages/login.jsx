@@ -17,27 +17,11 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
-    if (!formData.email || !formData.password) {
-      alert("Email and password are required");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      alert("Please enter a valid email address");
-      return;
-    }
-
-    if (formData.password.length < 6) {
-      alert("Password must be at least 6 characters");
-      return;
-    }
-
     try {
       const res = await axios.post(
         "http://localhost:3000/api/auth/login",
         formData,
-      );
+      );  
 
       localStorage.setItem("token", res.data.token);
       navigate("/profile");
@@ -48,7 +32,6 @@ export default function Login() {
 
   return (
     <>
-      <Navbar />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat rounded-lg "
         style={{ backgroundImage: "url('/src/assets/images/bg.jpg') " }} // change image if needed
@@ -82,7 +65,7 @@ export default function Login() {
               onChange={handleChange}
               placeholder="Enter your email"
               className={inputClass}
-            />
+              />
 
             <input
               type="password"

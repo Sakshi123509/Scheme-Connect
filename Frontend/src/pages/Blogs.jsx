@@ -72,7 +72,7 @@ const blogs = [
 const BlogsPage = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div className="bg-gray-50 min-h-screen px-6 pt-20 pb-16">
         {/* Heading */}

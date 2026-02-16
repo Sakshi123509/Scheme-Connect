@@ -64,7 +64,6 @@ export default function Signup() {
 
   return (
     <>
-      <Navbar />
       <div
         className="min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/src/assets/images/bg.jpg')" }}

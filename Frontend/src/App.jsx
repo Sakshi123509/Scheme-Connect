@@ -8,16 +8,18 @@ import Blog from "./pages/Blogs";
 import FAQ from "./pages/FAQ";
 import Contact from "./pages/contact.jsx";
 import Footer from "./components/Layout/Footer.jsx";
-  import Schemes from "./pages/Scheme.jsx";
+import Schemes from "./pages/Scheme.jsx";
 import SchemeDetail from "./pages/SchemeDetail.jsx";
+import ApplyScheme from "./pages/ApplyScheme.jsx"; // ✅ FIXED: Uncommented
+import Dashboard from "./pages/Dashboard.jsx"; // ✅ ADDED: Dashboard import
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import AdminPanel from "./pages/AdminPanel.jsx";
-// import ApplyScheme from "./pages/ApplyScheme.jsx";
 
 const App = () => {
-  return (  
+  return (
     <>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<HeroSection />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<LoginForm />} />
@@ -25,13 +27,12 @@ const App = () => {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/blogs" element={<Blog />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/profile" element={<Profile />} />
-
-        {/* Scheme Routes */}
+        
+        {/* Scheme Routes - Public */}
         <Route path="/schemes" element={<Schemes />} />
         <Route path="/schemes/:id" element={<SchemeDetail />} />
-        {/* <Route path="/schemes/:id/apply" element={<ApplyScheme />} /> */}
 
+        {/* Protected Routes - Require Login */}
         <Route
           path="/profile"
           element={
@@ -40,6 +41,28 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        
+        {/* ✅ FIXED: Apply route now properly protected */}
+        <Route
+          path="/apply/:id"
+          element={
+            <ProtectedRoute>
+              <ApplyScheme />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ✅ ADDED: Dashboard route */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin Route */}
         <Route
           path="/admin"
           element={

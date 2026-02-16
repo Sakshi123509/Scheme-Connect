@@ -74,7 +74,6 @@ const Schemes = () => {
   if (loading) {
     return (
       <>
-        <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-600 mx-auto mb-4"></div>
@@ -88,7 +87,6 @@ const Schemes = () => {
   if (error) {
     return (
       <>
-        <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
             <h3 className="text-red-800 font-bold mb-2">
@@ -109,7 +107,6 @@ const Schemes = () => {
 
   return (
     <>
-      <Navbar />
       <div className="bg-gray-50 min-h-screen px-6 pt-20 pb-14">
         {/* Heading */}
         <div className="max-w-7xl flex justify-center flex-col items-center mx-auto mb-10">

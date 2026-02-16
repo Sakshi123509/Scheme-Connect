@@ -23,7 +23,7 @@ export const applyForScheme = async (req, res) => {
       scheme: schemeId,
       profile: userProfile._id
     });
-    if (alreadyApplied) return res.status(400).json({ message: "Already applied" });
+    if (alreadyApplied) return res.status(400).json({ message: "Already applied for this scheme" });
 
     const application = new Application({
       scheme: schemeId,
@@ -32,29 +32,41 @@ export const applyForScheme = async (req, res) => {
 
     await application.save();
 
-    res.status(201).json({ message: "Applied successfully", application });
+    // ✅ FIXED: Return application with populated scheme data
+    const populatedApplication = await Application.findById(application._id)
+      .populate('scheme', 'name description category')
+      .populate('profile', 'user');
+
+    res.status(201).json({ 
+      message: "Applied successfully", 
+      application: populatedApplication 
+    });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Apply error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-/** Get applications of logged-in user */
+/** Get applications of logged-in user - ✅ FIXED */
 export const getMyApplications = async (req, res) => {
   try {
     const userProfile = await Profile.findOne({ user: req.user._id });
-    if (!userProfile) return res.status(404).json({ applications: [] });
     
+    if (!userProfile) {
+      return res.status(200).json({ applications: [] });
+    }
+    
+    // ✅ FIXED: Populate scheme details for dashboard
     const applications = await Application.find({ profile: userProfile._id })
-      .populate('scheme', 'name description')
+      .populate('scheme', 'name description category ministry website applicationFormUrl youtubeLink')
       .sort({ createdAt: -1 });
 
     res.status(200).json({ applications });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Get applications error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -62,15 +74,21 @@ export const getMyApplications = async (req, res) => {
 export const getAllApplications = async (req, res) => {
   try {
     const applications = await Application.find()
-      .populate('scheme', 'name description')
-      .populate('profile', 'name email')
+      .populate('scheme', 'name description category')
+      .populate({
+        path: 'profile',
+        populate: {
+          path: 'user',
+          select: 'name email'
+        }
+      })
       .sort({ createdAt: -1 });
 
     res.status(200).json({ applications });
 
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Get all applications error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -78,23 +96,35 @@ export const getAllApplications = async (req, res) => {
 export const getApplicationById = async (req, res) => {
   try {
     const userProfile = await Profile.findOne({ user: req.user._id });
+    
     const application = await Application.findById(req.params.id)
-      .populate('scheme', 'name description')
-      .populate('profile', 'name email');
-    if (!application) return res.status(404).json({ message: "Application not found" });
-    // Ensure user can only view their own application unless admin
+      .populate('scheme', 'name description category ministry')
+      .populate({
+        path: 'profile',
+        populate: {
+          path: 'user',
+          select: 'name email'
+        }
+      });
+      
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+    
+    // Check if user can view this application
     if (
-      (userProfile && application.profile._id.toString() !== userProfile._id.toString()) &&
+      userProfile && 
+      application.profile._id.toString() !== userProfile._id.toString() &&
       req.user.role !== 'admin'
     ) {
       return res.status(403).json({ message: "Access denied" });
     }
 
-
     res.status(200).json({ application });
+    
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error('Get application error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
@@ -102,20 +132,61 @@ export const getApplicationById = async (req, res) => {
 export const updateApplicationStatus = async (req, res) => {
   try {
     const { status } = req.body;
+    
     if (!['Approved', 'Rejected', 'Pending'].includes(status)) {
-      return res.status(400).json({ message: "Invalid status" });
+      return res.status(400).json({ message: "Invalid status. Must be: Approved, Rejected, or Pending" });
     }
 
     const application = await Application.findById(req.params.id);
-    if (!application) return res.status(404).json({ message: "Application not found" });
+    
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+    
     application.status = status;
     await application.save();
-    res.status(200).json({ message: "Application status updated", application });
+    
+    // Return with populated data
+    const updatedApplication = await Application.findById(application._id)
+      .populate('scheme', 'name description')
+      .populate('profile', 'user');
+    
+    res.status(200).json({ 
+      message: "Application status updated successfully", 
+      application: updatedApplication 
+    });
 
+  } catch (error) {
+    console.error('Update status error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
+};
 
-  catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+/** Delete application (Admin or owner) */
+export const deleteApplication = async (req, res) => {
+  try {
+    const userProfile = await Profile.findOne({ user: req.user._id });
+    const application = await Application.findById(req.params.id);
+    
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+    
+    // Check if user can delete this application
+    if (
+      userProfile &&
+      application.profile.toString() !== userProfile._id.toString() &&
+      req.user.role !== 'admin'
+    ) {
+      return res.status(403).json({ message: "Access denied" });
+    }
+    
+    await Application.findByIdAndDelete(req.params.id);
+    
+    res.status(200).json({ message: "Application deleted successfully" });
+    
+  } catch (error) {
+    console.error('Delete application error:', error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };

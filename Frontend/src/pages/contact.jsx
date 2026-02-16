@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/Layout/Navbar-light";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import flag from "../assets/images/flag.png"
+import flag from "../assets/images/flag.png";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -224,43 +224,60 @@ const Contact = () => {
               </form>
             </div>
             {/* Contact Info */}
+            {/* Contact Info */}
             <div className="space-y-6">
-              <div className="bg-white p-8 rounded-xl shadow-md">
+              <div className="bg-gradient-to-br from-green-50 to-amber-50 rounded-xl shadow-lg p-8">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                  Get in Touch
+                  Contact Information
                 </h2>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-amber-100 p-3 rounded-lg">
-                      <Mail className="text-amber-600" size={24} />
+                    <div className="w-12 h-12 rounded-full bg-amber-600 flex items-center justify-center shrink-0">
+                      <Mail className="text-white" size={20} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">Email</h3>
-                      <p className="text-gray-600">support@schemeconnect.in</p>
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        Email
+                      </h3>
+                      <a
+                        href="mailto:support@schemeconnect.in"
+                        className="text-amber-600 hover:underline"
+                      >
+                        support@schemeconnect.in
+                      </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="bg-green-100 p-3 rounded-lg">
-                      <Phone className="text-green-600" size={24} />
+                    <div className="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center shrink-0">
+                      <Phone className="text-white" size={20} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">Phone</h3>
-                      <p className="text-gray-600">1800-XXX-XXXX (Toll Free)</p>
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        Phone
+                      </h3>
+                      <a
+                        href="tel:+919876543210"
+                        className="text-green-600 hover:underline"
+                      >
+                        +91 98765 43210
+                      </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="bg-blue-100 p-3 rounded-lg">
-                      <MapPin className="text-blue-600" size={24} />
+                    <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+                      <MapPin className="text-white" size={20} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">Address</h3>
-                      <p className="text-gray-600">
-                        Government of India
+                      <h3 className="font-semibold text-gray-900 mb-1">
+                        Address
+                      </h3>
+                      <p className="text-gray-700">
+                        123, SchemeConnect St,
                         <br />
-                        New Delhi, India
+                        New Delhi, India - 110001
                       </p>
                     </div>
                   </div>
@@ -279,7 +296,7 @@ const Contact = () => {
                       rel="noopener noreferrer"
                       className="text-amber-600 hover:text-amber-700"
                     >
-                      {flag}  National Portal of India →
+                      {flag} National Portal of India →
                     </a>
                   </li>
                   <li>
