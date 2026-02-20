@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import SchemeCard from "../components/Schemes/SchemeCard";
-import Navbar from "../components/Layout/Navbar-light";
-import { schemeAPI } from "../services/api";
+import SchemeCard from "../Schemes/SchemeCard";
+import { schemeAPI } from "../../services/api"
 import { Search, Filter } from "lucide-react";
 
 const Schemes = () => {
@@ -30,15 +29,13 @@ const Schemes = () => {
   useEffect(() => {
     filterSchemes();
   }, [searchQuery, selectedCategory, schemes]);
-
+  
   const loadSchemes = async () => {
     try {
       console.log("🔄 Fetching schemes...");
       const response = await schemeAPI.getAll();
       console.log("✅ Schemes received:", response.data);
-      const schemesData = Array.isArray(response.data)
-        ? response.data
-        : response.data.schemes || [];
+      const schemesData = Array.isArray(response.data) ? response.data : response.data.schemes || [];
 
       setSchemes(schemesData);
       setFilteredSchemes(schemesData);
@@ -109,7 +106,6 @@ const Schemes = () => {
 
   return (
     <>
-      <Navbar />
       <div className="bg-gray-50 min-h-screen px-6 pt-20 pb-14">
         {/* Heading */}
         <div className="max-w-7xl flex justify-center flex-col items-center mx-auto mb-10">

@@ -1,7 +1,7 @@
 import Navbar from "../Layout/Navbar";
 import bg from "../../assets/images/bg.jpg";
 import { ArrowRight } from "lucide-react";
-import Schemes from "../../pages/Scheme.jsx";
+import HomeSchemes from "./HomeScheme.jsx"
 import Blogs from "../../pages/Blogs.jsx";
 import About from "../../pages/AboutUs.jsx";
 
@@ -47,7 +47,7 @@ export default function HeroSection() {
       </div>
       <About />
       <Blogs />
-<Schemes />
+      <HomeSchemes />
     </>
   );
 }
