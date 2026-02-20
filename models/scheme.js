@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const schemeSchema = new mongoose.Schema({
-    schemeName: {
+    name: {
         type: String,
         required: true,
         trim: true
@@ -15,38 +15,63 @@ const schemeSchema = new mongoose.Schema({
         enum: ['Education', 'Health', 'Employment', 'Women', 'Housing'],
         required: true
     },
-    eligibility: {
+    ministry: {
+        type: String,
+        trim: true
+    },
+    
+    // Arrays for details
+    eligibility: [String],
+    benefits: [String],
+    documents: [String],
+    applicationProcess: [String],
+    
+    // IMPORTANT: Dynamic links
+    applicationFormUrl: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    youtubeLink: {
+        type: String,
+        trim: true
+    },
+    website: {
+        type: String,
+        trim: true
+    },
+    helpline: {
+        type: String,
+        trim: true
+    },
+    
+    // Image (can be URL or uploaded)
+    image: {
+        type: String,
+        trim: true
+    },
+    
+    status: {
+        type: String,
+        enum: ['Active', 'Inactive'],
+        default: 'Active'
+    },
+    
+    // Optional fields
+    budget: String,
+    beneficiaries: String,
+    deadline: String,
+    
+    // For matching with user profile
+    eligibilityCriteria: {
         minAge: Number,
         maxAge: Number,
         minIncome: Number,
         maxIncome: Number,
-        categories: {
-            type: [String],
-            enum: ['General', 'SC', 'ST', 'OBC', 'Minority']
-        },
-        locations: [String],
-        gender: {
-            type: [String],
-            enum: ['Male', 'Female', 'Other']
-        },
+        categories: [String],
+        gender: [String],
+        states: [String],
         occupation: [String]
-    },
-    applicationFormUrl: {
-        type: String, // URL to downloadable form
-        required: true
-    },
-    youtubeLink: {
-        type: String, // YouTube video link
-        required: true
-    },
-    isActive: {
-        type: Boolean,
-        default: true
-    }
-    ,
-    deadline: {
-        type: Date,
-        required: true
     }
 }, {
     timestamps: true

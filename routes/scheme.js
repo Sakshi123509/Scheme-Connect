@@ -1,3 +1,4 @@
+import { importSchemesFromAPI } from '../controllers/schemecontroller.js';
 import express from 'express';
 import {
     getAllSchemes,
@@ -5,6 +6,7 @@ import {
     createScheme,
     updateScheme,
     deleteScheme,
+    filterSchemes,
     SearchSchemes
 } from '../controllers/schemecontroller.js';
 import authMiddleware from '../middleware/authmiddleware.js';
@@ -14,12 +16,14 @@ const router = express.Router();
 
 //public routes user can see schemes without login
 router.get('/', getAllSchemes);
-router.get('/:id', getSchemeById);
+router.get('/filter', filterSchemes);
 router.get('/search/:query', SearchSchemes);
+router.get('/:id', getSchemeById);
 
 //for admin only
 router.post('/', authMiddleware, adminMiddleware, createScheme);
 router.put('/:id', authMiddleware, adminMiddleware, updateScheme);
 router.delete('/:id', authMiddleware, adminMiddleware, deleteScheme);
+router.post('/import', authMiddleware, adminMiddleware, importSchemesFromAPI);
 
 export default router;
