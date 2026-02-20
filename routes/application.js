@@ -1,17 +1,20 @@
 import express from 'express';
-import {
-    applyForScheme,
-    getUserApplications,
-    getApplicationById,
-    updateApplicationStatus
-} from '../controllers/applicationconntroller.js';
+import { applyForScheme, getMyApplications, getApplicationById, getAllApplications, updateApplicationStatus } from '../controllers/applicationcontroller.js';
+
 import authMiddleware from '../middleware/authmiddleware.js';
+import adminMiddleware from '../middleware/adminmiddleware.js';
+
 
 const router = express.Router();
 
-router.post('/apply', authMiddleware, applyForScheme);
-router.get('/my', authMiddleware, getUserApplications);
-router.get('/:id', getApplicationById);
-router.put('/:id/status', updateApplicationStatus); // Admin only
+// User routes
+router.post('/', authMiddleware, applyForScheme);
+router.get('/my', authMiddleware, getMyApplications);
+router.get('/:id', authMiddleware, getApplicationById);
+
+
+// Admin routes
+router.get('/', authMiddleware, adminMiddleware, getAllApplications);
+router.put('/:id/status', authMiddleware, adminMiddleware, updateApplicationStatus);
 
 export default router;
