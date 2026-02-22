@@ -1,7 +1,7 @@
 // controllers/applicationController.js
 
 import Scheme from '../models/scheme.js';
-import Profile from '../models/Profile.js';
+import Profile from '../models/profile.js';
 import { validationResult } from 'express-validator';
 
 /** Apply for a scheme */
