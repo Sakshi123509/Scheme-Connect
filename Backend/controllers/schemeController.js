@@ -1,5 +1,5 @@
 import Scheme from '../models/scheme.js';
-import User from '../models/user.js';
+// import User from '../models/user.js';
 
 export const getAllSchemes = async (req, res) => {
     try {

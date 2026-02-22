@@ -1,4 +1,4 @@
-import { importSchemesFromAPI } from '../controllers/schemecontroller.js';
+import { importSchemesFromAPI } from '../controllers/schemeController.js';
 import express from 'express';
 import {
     getAllSchemes,
@@ -8,7 +8,7 @@ import {
     deleteScheme,
     filterSchemes,
     SearchSchemes
-} from '../controllers/schemecontroller.js';
+} from '../controllers/schemeController.js';
 import authMiddleware from '../middleware/authmiddleware.js';
 import adminMiddleware from '../middleware/adminmiddleware.js';
 
