@@ -1,5 +1,5 @@
 // controllers/applicationController.js
-import Application from '../models/application.js';
+
 import Scheme from '../models/scheme.js';
 import Profile from '../models/Profile.js';
 import { validationResult } from 'express-validator';
